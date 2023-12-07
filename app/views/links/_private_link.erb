@@ -1,0 +1,7 @@
+<!-- _post.html.erb -->
+<div class="link">
+  <h3>Link regular:</h3>
+  <%= render partial: 'link', locals: { link: link } %>
+  <h3>Link privado:</h3>
+  <h2><%= link.slug %></h2>
+</div>

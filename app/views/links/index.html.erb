@@ -4,10 +4,13 @@
 
 <div id="links">
   <% @links.each do |link| %>
-    <%= render link %>
-    <p>
-      <%= link_to "Show this link", link %>
-    </p>
+    <div class="link">
+    <% if link.type == "PrivateLink" %>
+      <%= render partial: 'private_link', locals: { link: link } %>
+    <% elsif link.type == "TemporaryLink"%>
+      <%= render partial: 'temporary_link', locals: { link: link } %>
+    <% end %>
+    </div>
   <% end %>
 </div>
 
