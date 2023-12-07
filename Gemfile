@@ -2,6 +2,12 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+#Bootstrap
+gem 'bootstrap'
+
+#Sprockets
+gem 'dartsass-sprockets'
+
 # Devise for login
 gem "devise"
 
