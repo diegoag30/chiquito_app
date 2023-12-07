@@ -5,13 +5,7 @@
 <div id="links">
   <% @links.each do |link| %>
     <div class="link">
-    <% if link.type == "private" %>
-      <%= render partial: 'private_link', locals: { link: link } %>
-    <% elsif link.type == "temporary"%>
-      <%= render partial: 'temporary_link', locals: { link: link } %>
-    <%else%>
-      <%= render partial: 'link', locals: { link: link } %>
-    <% end %>
+     <%= render partial: 'link', locals: { link: link } %>
     </div>
   <% end %>
 </div>

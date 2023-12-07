@@ -14,6 +14,14 @@
     <%= link.type %>
   </p>
 
+  <div class="link">
+    <% if link.type == "TemporaryLink" %>
+      <p>
+        <strong>Expirates at: </strong>
+        <%= link.expiration_date %>
+      </p>
+    <% end %>
+  </div>
   <p>
     <strong>Created at:</strong>
     <%= link.created_at %>
