@@ -1,3 +1,5 @@
+require 'nanoid'
+
 class LinksController < ApplicationController
   before_action  :set_link, only: %i[ show edit update destroy ]
 
@@ -23,6 +25,7 @@ class LinksController < ApplicationController
   def create
     @link = build_link(link_params)
     @link.user_id = current_user.id
+    @link.slug = Nanoid.generate(size: 5)
     #@link = Link.new(link_params)
 
     respond_to do |format|

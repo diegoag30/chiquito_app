@@ -4,8 +4,6 @@
      <%= f.label :public_url %>
      <%= f.text_field :public_url %>
     </div>  
-    <%= f.label :slug %>
-    <%= f.text_field :slug %> 
     <%= f.label :type %>
     <%= f.select :type, options_for_select(Link.subclasses.map { |subclass| [getSubclassTypeName(subclass.to_s), subclass] }, prompt: 'Select Link Type'), {allow_blank: true},{data: {select_target:"input", action:"change->select#toggle"}} %>
     <div data-select-target="password" class="form-group">
