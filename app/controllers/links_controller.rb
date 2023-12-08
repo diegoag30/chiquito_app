@@ -3,7 +3,7 @@ class LinksController < ApplicationController
 
   # GET /links or /links.json
   def index
-    @links = Link.all
+    @links = current_user.links
   end
 
   # GET /links/1 or /links/1.json
@@ -21,7 +21,6 @@ class LinksController < ApplicationController
 
   # POST /links or /links.json
   def create
-
     @link = build_link(link_params)
     #@link = Link.new(link_params)
 
@@ -67,12 +66,11 @@ class LinksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def link_params
-      params.require(:link).permit(:public_url, :slug, :password, :type, :created_at, :expiration_date, :active)
+      params.require(:link).permit(:public_url, :slug, :password, :type, :created_at, :expiration_date, :active, :user_id,)
     end
 
     def build_link(params)
       link_type = params.delete(:type)
-
       if Link.subclasses.map(&:name).include?(link_type)
         link_type.constantize.new(params)
       else
