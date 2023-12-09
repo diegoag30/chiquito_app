@@ -1,8 +1,8 @@
 require 'nanoid'
 
 class LinksController < ApplicationController
-  before_action  :set_link, only: %i[ show edit update destroy ]
-
+  before_action  :set_link, only: %i[edit update destroy ]
+  before_action :set_by_id_or_slug, only: %i[show]
   # GET /links or /links.json
   def index
     @links = current_user.links
@@ -10,6 +10,13 @@ class LinksController < ApplicationController
 
   # GET /links/1 or /links/1.json
   def show
+    unless @link
+      render file: "#{Rails.root}/public/404.html", layout: true, status: :not_found
+    end
+    if @redirect
+      url = "https://#{@link.public_url}"
+      redirect_to url, allow_other_host: true
+    end
   end
 
   # GET /links/new
@@ -66,6 +73,18 @@ class LinksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_link
       @link = Link.find(params[:id])
+    end
+
+    def set_by_id_or_slug
+
+      if params[:id].to_i.to_s == params[:id]
+        # params[:id] is numeric, try to find by ID
+        @link = current_user.links.find_by(id: params[:id])
+      else
+        # params[:id] is not numeric, try to find by slug
+        @link = current_user.links.find_by(slug: params[:id])
+        @redirect = true
+      end
     end
 
     # Only allow a list of trusted parameters through.
