@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_09_043409) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_11_045125) do
   create_table "links", force: :cascade do |t|
     t.string "public_url"
     t.string "slug"
@@ -42,10 +42,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_09_043409) do
   create_table "visits", force: :cascade do |t|
     t.string "user_agent"
     t.string "ip_address"
-    t.string "host"
     t.integer "link_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date"
     t.index ["link_id"], name: "index_visits_on_link_id"
   end
 

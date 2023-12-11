@@ -2,6 +2,9 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+#Faker para generar datos
+gem 'faker'
+
 #Nanoid
 gem 'nanoid'
 

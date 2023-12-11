@@ -6,7 +6,7 @@
     </div>  
     <%= f.label :type %>
     <%= f.select :type, options_for_select(Link.subclasses.map { |subclass| [getSubclassTypeName(subclass.to_s), subclass] }, prompt: 'Select Link Type'), {allow_blank: true},{data: {select_target:"input", action:"change->select#toggle"}} %>
-    <div data-select-target="password" class="form-group">
+    <div data-select-target="password" class="form-group" hidden>
        <%= f.label :password %>
        <%= f.password_field :password %>
     </div>

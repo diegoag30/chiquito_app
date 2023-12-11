@@ -1,4 +1,3 @@
-require 'nanoid'
 
 class LinksController < ApplicationController
   before_action  :set_link, only: %i[edit update destroy ]
@@ -92,7 +91,18 @@ class LinksController < ApplicationController
       params.require(:link).permit(:public_url, :slug, :password, :type, :created_at, :expiration_date, :active, :user_id,)
     end
 
+    def clean_fields(params)
+      if params[:type] != "PrivateLink"
+        params.delete(:password)
+      end
+      if params[:type] != "TemporaryLink"
+        params.delete(:expiration_date)
+      end
+      return params
+    end
+
     def build_link(params)
+      params = clean_fields(params)
       link_type = params.delete(:type)
       if Link.subclasses.map(&:name).include?(link_type)
         link_type.constantize.new(params)
