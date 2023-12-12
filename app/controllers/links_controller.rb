@@ -4,7 +4,7 @@ class LinksController < ApplicationController
   before_action :set_by_id_or_slug, only: %i[show]
   # GET /links or /links.json
   def index
-    @links = current_user.links
+    @links = current_user.links.order(:public_url).page params[:page] 
   end
 
   # GET /links/1 or /links/1.json
@@ -88,7 +88,7 @@ class LinksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def link_params
-      params.require(:link).permit(:public_url, :slug, :password, :type, :created_at, :expiration_date, :active, :user_id,)
+      params.require(:link).permit(:public_url, :slug, :password, :type, :created_at, :expiration_date, :active, :user_id, :page)
     end
 
     def clean_fields(params)
