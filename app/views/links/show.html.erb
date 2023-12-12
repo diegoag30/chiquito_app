@@ -1,6 +1,21 @@
-<div class="link">
-  <div class="link">
-    <%= render partial: 'link', locals: { link: @link } %>
-  </div>
+<div id="links">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><strong>Public url</strong> </th>
+        <th><strong>Slug</strong></th>
+        <th><strong>Type</strong></th>
+        <th><strong>Expirates at</strong></th>
+        <th><strong>Active</strong></th></th>
+        <th><strong>Visits</strong></th></th>
+        <th><strong>Actions</strong></th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <%= render partial: 'link', locals: { link: @link } %>
+      </tr>
+    </tbody>
+  </table>
 </div>
-  <%= link_to "Back to links", links_path %>
+<%= link_to "Back to links", links_path %>
