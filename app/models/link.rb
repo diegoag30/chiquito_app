@@ -1,6 +1,6 @@
 class Link < ApplicationRecord
   belongs_to :user
-  has_many :visits
+  has_many :visits , dependent: :destroy
 end
 
 class StandardLink < Link

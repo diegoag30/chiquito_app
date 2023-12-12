@@ -75,7 +75,6 @@ class LinksController < ApplicationController
     end
 
     def set_by_id_or_slug
-
       if params[:id].to_i.to_s == params[:id]
         # params[:id] is numeric, try to find by ID
         @link = current_user.links.find_by(id: params[:id])

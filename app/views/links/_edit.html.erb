@@ -1,0 +1,24 @@
+<%= form_with(model: @link.becomes(Link), url: link_path(@link)) do |f| %>
+  <div class="form">
+    <div class="form-group">
+      <%= f.label :public_url %>
+      <%= f.text_field :public_url %>
+    </div>
+
+    <% if @link.type == "TemporaryLink" %>
+      <div class="form-group">
+        <%= f.label :expiration_date %>
+        <%= f.datetime_field :expiration_date %>
+      </div>
+    <% end %>
+
+    <% if @link.type == "PrivateLink" %>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+    <% end %>
+
+    <%= f.submit 'Edit Link' %>
+  </div>
+<% end %>
