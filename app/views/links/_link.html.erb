@@ -1,35 +1,26 @@
 <div id="<%= dom_id link %>">
-  <p>
-    <strong>Public url:</strong>
+  <td>
     <%= link.public_url %>
-  </p>
+  </td>
 
-  <p>
-    <strong>Slug:</strong>
+  <td>
     <%= link.slug %>
-  </p>
+  </td>
   
-  <p>
-    <strong>Type:</strong>
+  <td>
     <%= link.type %>
-  </p>
+  </td>
 
   <div class="link">
-    <% if link.type == "TemporaryLink" %>
-      <p>
-        <strong>Expirates at: </strong>
-        <%= link.expiration_date %>
-      </p>
-    <% end %>
+    <td>
+      <% if link.type == "TemporaryLink" %>
+          <%= link.expiration_date %>
+      <% end %>
+    </td>
   </div>
-  <p>
-    <strong>Created at:</strong>
-    <%= link.created_at %>
-  </p>
 
-  <p>
-    <strong>Active:</strong>
+  <td>
     <%= link.active %>
-  </p>
+  </td>
 
 </div>
