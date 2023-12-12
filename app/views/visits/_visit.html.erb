@@ -1,22 +1,12 @@
 <div id="<%= dom_id visit %>">
-  <p>
-    <strong>User agent:</strong>
+  <td>
     <%= visit.user_agent %>
-  </p>
+  </td>
 
-  <p>
-    <strong>Ip address:</strong>
+  <td>
     <%= visit.ip_address %>
-  </p>
-
-  <p>
-    <strong>Host:</strong>
-    <%= visit.host %>
-  </p>
-
-  <p>
-    <strong>Link:</strong>
-    <%= visit.link_id %>
-  </p>
-
+  </td>
+  <td>
+    <%= visit.date %>
+  </td>
 </div>

@@ -3,12 +3,26 @@
 <h1>Visits</h1>
 
 <div id="visits">
-  <% @visits.each do |visit| %>
-    <%= render visit %>
-    <p>
-      <%= link_to "Show this visit", visit %>
-    </p>
-  <% end %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><strong>User Agent</strong> </th>
+        <th><strong>Ip Adress</strong></th>
+        <th><strong>Date</strong></th>
+
+      </tr>
+    </thead>
+    <tbody>
+        <% @visits.each do |visit| %>
+          <tr>
+            <%= render visit %>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
 </div>
 
-<%= link_to "New visit", new_visit_path %>
+<%= link_to "Back to links", links_path %>
+<div class="container">
+  <%= paginate @visits%>
+</div>
