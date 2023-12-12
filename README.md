@@ -45,3 +45,10 @@ rails db:reset
 #En caso de seer necesario, para poblar la base de datos
 rails db:seed
 ```
+
+## Consideraciones
+
+El uso de links de momento se utiliza de la forma http://127.0.0.1:3000/links/:slug
+donde slug es el valor dado por la columna de dicho nombre.
+
+Por el momento redirige a https://{public_url} sin validar la url.
