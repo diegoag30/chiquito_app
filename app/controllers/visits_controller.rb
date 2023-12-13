@@ -2,7 +2,8 @@ class VisitsController < ApplicationController
   # GET /visits or /visits.json
   def index
     @link = Link.find(params[:link_id])
-    @visits = @link.visits.order(:user_agent).page params[:page] 
+    @visits = @link.visits.order(:user_agent).page params[:page]
+    @chart_data = @visits.group_by_day(:date).count 
   end
 
   private

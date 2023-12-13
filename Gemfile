@@ -2,6 +2,10 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+#Gemas para crear charts
+gem 'groupdate'
+gem 'chartkick'
+
 #Kaminari para paginacion
 gem 'kaminari'
 
