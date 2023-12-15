@@ -12,7 +12,8 @@ class LinksController < ApplicationController
     unless @link
       render file: "#{Rails.root}/public/404.html", layout: true, status: :not_found
     end
-    if @redirect
+    verified = @link.verify_visit("")
+    if @redirect && verified
       url = "https://#{@link.public_url}"
       redirect_to url, allow_other_host: true
     end
