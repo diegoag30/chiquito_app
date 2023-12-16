@@ -21,6 +21,8 @@ class TemporaryLink < Link
     if self.expiration_date < DateTime.now
       self.active = false
     end
+    save!
+    return self.active
   end
 end
 
@@ -35,15 +37,14 @@ end
 
 
 class ShortLiveLink < Link
-  attribute :visited, type: :integer, default: 1
 
   def verify_visit(pass)
-    explode
-    if visited == 0
+    if self.visited == 1
       self.active = false   
     else
-      visited -= 1
+      self.visited += 1
     end
+    save!
     return self.active
   end  
 end

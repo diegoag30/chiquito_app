@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_11_045125) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_16_162755) do
   create_table "links", force: :cascade do |t|
     t.string "public_url"
     t.string "slug"
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_11_045125) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "visited", default: 0
     t.index ["type"], name: "index_links_on_type"
     t.index ["user_id"], name: "index_links_on_user_id"
   end

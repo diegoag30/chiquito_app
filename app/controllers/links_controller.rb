@@ -9,13 +9,12 @@ class LinksController < ApplicationController
 
   # GET /links/1 or /links/1.json
   def show
-    unless @link
-      render file: "#{Rails.root}/public/404.html", layout: true, status: :not_found
-    end
-    verified = @link.verify_visit("")
-    if @redirect && verified
+    if @verified
       url = "https://#{@link.public_url}"
-      redirect_to url, allow_other_host: true
+      redirect_to(url, allow_other_host: true) and return
+    end    
+    if @redirect
+      raise ActionController::RoutingError.new("Not Found")
     end
   end
 
@@ -82,6 +81,7 @@ class LinksController < ApplicationController
       else
         # params[:id] is not numeric, try to find by slug
         @link = current_user.links.find_by(slug: params[:id])
+        @verified = @link.verify_visit("")
         @redirect = true
       end
     end
