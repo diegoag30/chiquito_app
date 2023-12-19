@@ -5,12 +5,7 @@ class RedirectsController < ApplicationController
   def show
     unless @link.type == 'PrivateLink'
       @verified = @link.verify_visit()
-      if @verified
-        url = "https://#{@link.public_url}"
-        redirect_to(url, allow_other_host: true) and return   
-      else
-        raise ActionController::RoutingError.new("Not Found")
-      end
+      redirect_or_fail(@verified)
     end
     #ELSE RENDER
   end
@@ -19,16 +14,21 @@ class RedirectsController < ApplicationController
     @link = current_user.links.find(params[:id])
     password = params[:link][:password]
     @verified = @link.verify_visit(password)
-    if @verified
-      url = "https://#{@link.public_url}"
-      redirect_to(url, allow_other_host: true) and return   
-    else
-      raise ActionController::RoutingError.new("Not Found")
-    end
+    redirect_or_fail(@verified)
   end
 
   def set_link_by_slug
     @link = current_user.links.find_by(slug: params[:id])
+  end
+
+  def redirect_or_fail(verified)
+    if verified
+      @link.visits.create(date: DateTime.now, ip_address: request.remote_ip,user_agent: request.user_agent)
+      url = "https://#{@link.public_url}"
+      redirect_to(url, allow_other_host: true) and return   
+    else
+      raise ActionController::RoutingError.new("Not Found")
+    end    
   end
   
 end
