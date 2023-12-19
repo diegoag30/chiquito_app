@@ -4,11 +4,11 @@
   </td>
 
   <td>
-    <%= link.slug %>
+    <%= link_to "#{link.slug}", short_link_path(link.slug)%>
   </td>
   
   <td>
-    <%= link.type %>
+    <%= getSubclassTypeName(link.type) %>
   </td>
 
   <div class="link">

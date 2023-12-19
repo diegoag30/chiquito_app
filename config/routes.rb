@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  #get 'redirects/show'
-  get '/l/:id', to: 'redirects#show'
+  #RUTAS DE REDIRECCION PARA /l
+  get '/l/:id', to: 'redirects#show', as: 'short_link'
   post '/l/:id', to: 'redirects#redirect', as: 'redirects'
+
+  #Resources
   resources :visits
   resources :links
 
