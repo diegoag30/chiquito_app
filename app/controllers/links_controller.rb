@@ -1,6 +1,7 @@
 
 class LinksController < ApplicationController
   before_action  :set_link, only: %i[edit update destroy show ]
+  before_action  :require_permission, only: %i[edit update destroy show ]
   # GET /links or /links.json
   def index
     @links = current_user.links.order(:public_url).page params[:page] 
@@ -88,6 +89,13 @@ class LinksController < ApplicationController
         link_type.constantize.new(params)
       else
         Link.new(params)
+      end
+    end
+
+    def require_permission
+      unless @link.user == current_user
+        redirect_to links_path,
+        notice: "You do not have permission to do that."
       end
     end
 end
