@@ -11,7 +11,7 @@
 
 #Funcion para crear links aleatorios
 def create_link(user)
-    link_type = ['PrivateLink', 'TemporaryLink', 'ShortLiveLink','StandardLink'].sample
+    link_type = ['PrivateLink', 'TemporaryLink','StandardLink'].sample
     link_fields = {
         public_url: Faker::Internet.url,
         slug: Nanoid.generate(size: 5),
@@ -25,14 +25,31 @@ def create_link(user)
         link_fields[:expiration_date] = Faker::Time.forward(days: 30)
       end
     
-      Link.create!(link_fields)
+      link = Link.create!(link_fields)
+      create_visits(link)
+      return link
+
+end
+
+def create_short_live_link(user)
+  link_fields = {
+    public_url: Faker::Internet.url,
+    slug: Nanoid.generate(size: 5),
+    type: 'ShortLiveLink',
+    user: user,
+    active: false,
+    visited: 1,
+  }
+  link = Link.create!(link_fields)  
+  Visit.create!(date: Faker::Date.between(from: 4.months.ago, to: Date.today), ip_address:Faker::Internet.public_ip_v4_address, user_agent: Faker::Internet.user_agent, link: link)
+  return link
 end
 
 #Creacion de visitas aleatorias
-def create_visits
+def create_visits(link)
     (4.months.ago.to_date..Date.current).each do |date|
         rand(6).times do
-            Visit.create!(date: date, ip_address:Faker::Internet.public_ip_v4_address, user_agent: Faker::Internet.user_agent, link_id: Faker::Number.between(from: 1, to: Link.all.count))
+            Visit.create!(date: date, ip_address:Faker::Internet.public_ip_v4_address, user_agent: Faker::Internet.user_agent, link: link)
         end
     end
 end
@@ -46,5 +63,6 @@ users = [test_1,test_2]
 
 users.each do |user|
     20.times {create_link(user)}
+    5.times {create_short_live_link(user)}
 end
-create_visits
+#create_visits
